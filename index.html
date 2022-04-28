@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENCRIPTADOR</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+   <div class="container">
+    <textarea class="txtEntrada" id="txtEntrada">Ingrese el texto aqui</textarea>
+
+    <textarea class="txtSalida" id="txtSalida" cols="30" rows="60"></textarea>
+    <img class="imagen" id="muneco" src="img/Muñeco.svg" alt="muñeco.svg">
+    
+    <div class="container-logo">
+        <img class="logo" id="logo" src="img/Vector.svg" alt="logo.svg">
+    </div>
+
+    <div class="nota1">
+        <p class="n1" id="n1">Ningún mensaje fue encontrado</p>
+        <p class="n2" id="n2">Ingresa el texto que desees encriptar o desencriptar.</p>
+    </div>
+    <button class="btnCopiar" id="bc"><p class="pCopiar">Copiar</p></button> 
+
+    <div class="smallwords">
+        <img class="sadmiracion" id="sadmiracion" src="img/admiracion.svg" alt="admiracion.svg">
+        <p class="sw" id="sw">Sólo letras minúsculas y sin acentos</p>
+    </div>
+
+    <div class="container_buttons">
+        <button class="btnEncriptar" id="be"><p class="pEncriptar">Encriptar</p> </button>
+        <button class="btnDesencriptar" id="bd"><p class="pDesencriptar">Desencriptar</p></button>  
+    </div>
+    
+    
+</div>
+    
+    
+</body>
+
+<script>
+    var buttonEncriptar=document.getElementById("be");
+    buttonEncriptar.onclick=Encriptar;
+
+    var buttonDesencriptar=document.getElementById("bd");
+    buttonDesencriptar.onclick=Desencriptar;
+
+    var buttonCopiar=document.getElementById("bc");
+    buttonCopiar.onclick=copiar;
+
+    var muneco=document.getElementById("muneco");
+    var nota1=document.getElementById("n1");
+    var nota2=document.getElementById("n2");
+    
+    
+
+    function Encriptar()
+    {        
+        var textoEntrada=document.getElementById("txtEntrada").value;
+        if(valida(textoEntrada))
+        {
+            var textoFinal="";
+            for(var i=0; i < textoEntrada.length; i++){
+                var letra = encriptarLetra(textoEntrada[i]);
+                textoFinal += letra;
+            }
+            
+        muneco.hidden=true;
+        nota1.hidden=true;
+        nota2.hidden=true;
+        document.getElementById("txtSalida").value=textoFinal;
+        document.getElementById("txtEntrada").value="Ingrese el texto aqui";
+        }
+    }
+
+    function Desencriptar()
+    {   
+        
+        var textoEntrada=document.getElementById("txtEntrada").value;
+        if(valida(textoEntrada))
+        {
+        textoEntrada=textoEntrada.replaceAll("ai","a");
+        textoEntrada=textoEntrada.replaceAll("enter","e");
+        textoEntrada=textoEntrada.replaceAll("imes","i");
+        textoEntrada=textoEntrada.replaceAll("ober","o");
+        textoEntrada=textoEntrada.replaceAll("ufat","u");
+        muneco.hidden=true;
+        nota1.hidden=true;
+        nota2.hidden=true;
+        document.getElementById("txtSalida").value=textoEntrada;
+        document.getElementById("txtEntrada").value="Ingrese el texto aqui";
+        }
+    }
+
+    function valida(texto)
+    {
+        if(texto=="")
+        {
+            alert("NECESITAS INGRESAR TEXTO");
+            return false;
+        }
+
+        else{
+            return true;
+        }
+    }
+
+    function encriptarLetra(letra) {
+        switch(letra) {
+            case 'e': return 'enter';
+            case 'i': return 'imes';
+            case 'a': return 'ai';
+            case 'o': return 'ober';
+            case 'u': return 'ufat';
+            default : return letra;
+        }
+    }
+
+    function copiar()
+    {
+        var t=document.getElementById("txtSalida");
+        t.select();
+        document.execCommand("copy");
+    }
+    
+</script>
+
+</html>
